@@ -1,0 +1,38 @@
+% Variables
+\def \title{}
+\def \subtitle{}
+\def \frontimage{}
+\newcommand\CodexSetTitle[1] {\def \title{#1}}
+\newcommand\CodexSetSubtitle[1] {\def \subtitle{#1}}
+\newcommand\CodexSetFrontImage[1] {\def \frontimage{#1}}
+
+% Front cover
+\newcommand\CodexFrontCover{
+  \pagenumbering{gobble}  % don't count cover as page
+  \thispagestyle{empty}
+  \onecolumn
+
+  \tikz[remember picture,overlay]
+    \node[inner sep=0pt] at (current page.center){
+      \includegraphics[width=\paperwidth,height=\paperheight]{\frontimage}
+    };
+
+  \vfill
+  \begin{center}
+  \titlefont
+  \fillstroke{white}{geargrey}{1}{\MakeUppercase{\title}}
+  
+  \vspace{0.5cm}
+  \subtitlefont
+  \fillstroke{white}{geargrey}{0.5}{\subtitle}
+  \end{center}
+
+  \vspace{1cm}
+  \hfil
+  \clearpage
+
+  \pagenumbering{arabic}  % return page numbering
+  \twocolumn
+  \mainfont
+}
+

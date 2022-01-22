@@ -1,0 +1,27 @@
+\RequirePackage{tcolorbox}
+
+% Scroll
+\tcbuselibrary{skins}
+\newtcolorbox{CodexScroll}[1]{
+  enhanced,
+  before skip=\baselineskip,
+  toptitle=3mm,
+  left=5pt,
+  right=5pt,
+  fonttitle=\scrolltitlefont\color{maroon},
+  fontupper=\scrolltextfont\color{geargrey},
+  title=#1,
+  arc=0mm,
+  borderline north={1pt}{-0.5pt}{maroon},
+  borderline south={1pt}{-0.5pt}{maroon},
+  colback=parchment,
+  colframe=maroon,
+  colbacktitle=parchment,
+  overlay={
+    \fill [fill=maroon] (frame.south west) -- ++(7pt,0) -- ++(0,-5pt) -- cycle;
+    \fill [fill=maroon] (frame.north west) -- ++(7pt,0) -- ++(0,5pt) -- cycle;
+    \fill [fill=maroon] (frame.north east) -- ++(-7pt,0) -- ++(0,5pt) -- cycle;
+    \fill [fill=maroon] (frame.south east) -- ++(-7pt,0) -- ++(0,-5pt) -- cycle;
+  },
+  after={\vspace{6pt}}
+}

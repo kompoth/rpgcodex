@@ -1,0 +1,74 @@
+\RequirePackage[explicit]{titlesec}
+
+% https://tex.stackexchange.com/questions/420490/multiple-arguments-to-titleformat
+
+%% Part
+%\titleformat\part[display]{
+%  \filcenter\titlefont
+%}{}{0cm}{
+%  \begin{tikzpicture}[remember picture,overlay]
+%    \node[inner sep=0pt] at (current page.center) {
+%      \includegraphics[width=\paperwidth]{\bgimage}
+%    };
+%  \end{tikzpicture}
+%}{}
+
+% BG image
+\newcommand\currentbg{}
+\newcommand\CodexSetBG[1]{\gdef\currentbg{#1}}
+\newcommand\CodexUnsetBG{\gdef\currentbg{}}
+
+% Chapter
+\titleformat\chapter{\chapterfont}{}{-1cm}{
+  \thispagestyle{plain}
+  \renewcommand{\headrulewidth}{0.0pt}
+  \if\relax\currentbg\relax
+  \else
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[inner sep=0pt,anchor=north] at (current page.north) {
+        \includegraphics[width=\paperwidth]{\currentbg}
+      };
+    \end{tikzpicture}
+  \fi
+  \filright
+  \fillstroke{maroon}{tabledark}{0.5}{\chaptername \Roman{chapter}. #1}
+}{}
+
+\titleformat{name=\chapter,numberless}{\chapterfont}{}{0cm}{
+  \if\relax\currentbg\relax
+  \else
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[inner sep=0pt,anchor=north] at (current page.north) {
+        \includegraphics[width=\paperwidth]{\currentbg}
+      };
+    \end{tikzpicture}
+  \fi
+  \fillstroke{maroon}{tabledark}{0.5}{#1}
+}{\thispagestyle{plain}}
+
+\titlespacing\chapter{0cm}{2.5cm}{1cm}
+
+% Section
+\titleformat{\section}
+{\color{maroon}\mainfont\LARGE}
+{\thesection. #1}{0.5cm}{}
+[{\titleline{\color{maroon}\titlerule[1pt]}}]
+
+\titleformat{name=\section,numberless}
+{\color{maroon}\mainfont\LARGE}
+{#1}{0.5cm}{}
+[{\titleline{\color{maroon}\titlerule[1pt]}}]
+
+\titlespacing\section{0cm}{0cm}{0.2cm}
+
+% Paragraph
+\titleformat{\paragraph}[runin]
+{\mainfont\bf}{}{0cm}{#1. }{}
+
+
+% ToC
+\renewcommand\tableofcontents{%
+  \chapter*{\contentsname}
+  
+  \@starttoc{toc}
+}

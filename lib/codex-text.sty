@@ -1,0 +1,56 @@
+\RequirePackage{fontspec}
+
+% Fonts
+\newcommand\mainfont{\normalfont}
+\newcommand\titlefont{\normalfont}
+\newcommand\subtitlefont{\normalfont}
+\newcommand\chapterfont{\normalfont}
+\newcommand\pagenumfont{\normalfont}
+\newcommand\scrolltitlefont{\normalfont}
+\newcommand\scrolltextfont{\normalfont}
+
+% Commands to set fonts
+\newcommand\CodexMainFont[2] {
+  \renewcommand{\mainfont}{#1\fontsize{#2}{#2}\selectfont}
+}
+\newcommand\CodexTitleFont[2] {
+  \renewcommand{\titlefont}{#1\fontsize{#2}{#2}\selectfont}
+}
+\newcommand\CodexSubtitleFont[2] {
+  \renewcommand{\subtitlefont}{#1\fontsize{#2}{#2}\selectfont}
+}
+\newcommand\CodexChapterFont[2] {
+  \renewcommand{\chapterfont}{#1\fontsize{#2}{#2}\selectfont}
+}
+\newcommand\CodexPageNumFont[2] {
+  \renewcommand{\pagenumfont}{#1\fontsize{#2}{#2}\selectfont}
+}
+\newcommand\CodexScrollTitleFont[2] {
+  \renewcommand{\scrolltitlefont}{#1\fontsize{#2}{#2}\selectfont}
+}
+\newcommand\CodexScrollTextFont[2] {
+  \renewcommand{\scrolltextfont}{\fontsize{#2}{#2}\selectfont}
+}
+
+% Use main font
+\mainfont
+
+% Text stroke command
+\def\rgbtoarray#1,#2,#3\null{[#1 #2 #3]}
+\def\csvtoarray#1{%
+  \expandafter\rgbtoarray#1\null%
+}
+\newcommand{\extractrgb}[2]{%
+  \extractcolorspecs{#1}{\model}{\mycolor}%
+  \convertcolorspec{\model}{\mycolor}{rgb}{\printcol}%
+  \edef#2{\printcol}%
+}
+\newcommand*{\fillstroke}[4]{%
+  \extractrgb{#1}{\colorvector}%
+  \extractrgb{#2}{\strokevector}%
+  \special{pdf:bcolor \csvtoarray{\colorvector} \csvtoarray{\strokevector}}%
+  \special{pdf:literal direct #3 w 2 Tr}%
+  #4%
+  \special{pdf:ecolor}%
+  \special{pdf:literal direct 0 Tr}%
+}

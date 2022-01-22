@@ -1,0 +1,30 @@
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{colortbl}
+
+\renewcommand{\arraystretch}{1.5}
+
+% Style for table head cell
+\newcommand\CodexHeadCell[1]{
+  \cellcolor{maroon}\textcolor{tablelight}{\bf#1}
+}
+
+\newcolumntype{V}{>{\centering\arraybackslash}X}
+
+% Simple table
+\newenvironment{CodexSimpleTable}[2]{
+  \rowcolors{1}{tabledark}{tablelight}
+  \tabularx{#1}{*{#2}{V}}
+}{
+  \endtabularx
+}
+
+% Adjustable table
+\newenvironment{CodexTable}[2]{
+  \rowcolors{1}{tabledark}{tablelight}
+  \tabularx{#1}{#2}
+}{
+  \endtabularx
+}
+
+\renewcommand{\thetable}{\Roman{chapter}.\arabic{table}}

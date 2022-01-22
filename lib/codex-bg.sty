@@ -1,0 +1,14 @@
+\RequirePackage[pages=all]{background}
+
+% Pages background
+\iftoggle{bool-bg}{
+  \backgroundsetup{
+    scale=1,
+    opacity=1.0,
+    angle=0,
+    color=black,
+    contents={\includegraphics[width=\paperwidth]{lib/img/bg.jpeg}}
+  }
+}{
+  \backgroundsetup{contents={}}
+}
